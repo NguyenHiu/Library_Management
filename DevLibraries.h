@@ -9,6 +9,8 @@
 #include <fstream>
 
 #define BOOKS "Books.csv"
+#define PEOPLE "People.csv"
+#define BORROWCARDS "BorrowCards.csv"
 #define STOPWORDS "stopwords.txt"
 
 typedef unsigned long long int ull;

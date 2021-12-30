@@ -61,9 +61,13 @@ void Book::changeInfo(ull _isbn, std::string _title, std::string _author, std::s
 std::string Book::toString() const
 {
     std::stringstream writer;
-    writer << this->bISBN << ","<< this->bTitle << "," << this->bAuthor << "," << this->bPublisher << "," << this->bPubDate.toString();
-    for (int i = this->bCopies.size() - 1; i >= 0; --i)
-        writer << "," << this->bCopies[i].toString();
+    writer << this->bISBN
+           << "," << this->bTitle
+           << "," << this->bAuthor
+           << "," << this->bPublisher
+           << "," << this->bPubDate.toString();
+    /* for (int i = this->bCopies.size() - 1; i >= 0; --i)
+        writer << "," << this->bCopies[i].toString(); */
     return writer.str();
 }
 
@@ -71,7 +75,8 @@ std::string Book::checkOut()
 {
     int n = this->bCopies.size();
     for (int i = 0; i < n; ++i)
-        if (bCopies[i].checkOut() == true) return bCopies[i].toString();
+        if (bCopies[i].checkOut() == true)
+            return bCopies[i].toString();
     return "";
 }
 

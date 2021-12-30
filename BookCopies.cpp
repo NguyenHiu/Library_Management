@@ -17,7 +17,6 @@ bool BookCopies::checkOut()
 {
     if (this->bStatus != Loaned)
     {
-        Date _today;
         this->bStatus = Loaned;
         return true;
     }
