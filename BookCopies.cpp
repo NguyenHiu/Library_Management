@@ -1,6 +1,11 @@
 #include "BookCopies.h"
 
 // Constructor and Destructor
+BookCopies::BookCopies()
+{
+    this->bBarCode = "";
+    this->bStatus = Available;
+}
 BookCopies::BookCopies(std::string _barCode)
 {
     this->bBarCode = _barCode;
@@ -10,12 +15,10 @@ BookCopies::BookCopies(std::string _barCode)
 // Member function
 bool BookCopies::checkOut()
 {
-    if (this->bStatus == Available)
+    if (this->bStatus != Loaned)
     {
         Date _today;
         this->bStatus = Loaned;
-        this->bBorrowed = _today;
-        this->bDueDate = this->bBorrowed + 7;
         return true;
     }
     return false;

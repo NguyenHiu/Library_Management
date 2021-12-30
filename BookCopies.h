@@ -13,10 +13,10 @@ class BookCopies
 {
 private:
     std::string bBarCode;
-    Date bBorrowed, bDueDate;
     BookStatus bStatus;
 
 public:
+    BookCopies();
     BookCopies(std::string _barCode);
 
 public:

@@ -1,6 +1,14 @@
 #include "Book.h"
 
 // Constructor and Destructor
+Book::Book()
+{
+    this->bISBN = 0;
+    this->bAuthor = this->bTitle = this->bPublisher = "";
+    Date _today;
+    this->bPubDate = _today;
+}
+
 Book::Book(std::vector<std::string> bTokens)
 {
     int i = -1, n = bTokens.size();
@@ -8,17 +16,17 @@ Book::Book(std::vector<std::string> bTokens)
     this->bTitle = bTokens[++i];
     this->bAuthor = bTokens[++i];
     this->bPublisher = bTokens[++i];
-    Date *pubDate = Date::Parse(bTokens[++i]);
-    if (pubDate)
+    Date *bPubDate = Date::Parse(bTokens[++i]);
+    if (bPubDate)
     {
-        this->pubDate = *pubDate;
-        delete pubDate;
-        pubDate = nullptr;
+        this->bPubDate = *bPubDate;
+        delete bPubDate;
+        bPubDate = nullptr;
     }
     else
     {
         Date _today;
-        this->pubDate = _today;
+        this->bPubDate = _today;
     }
     while (i < n - 1)
     {
@@ -35,16 +43,16 @@ bool Book::operator==(const Book &other) const
 }
 
 // Member function
-void Book::changeInfo(ull _isbn, std::string _title, std::string _author, std::string _publisher, std::string _pubDate)
+void Book::changeInfo(ull _isbn, std::string _title, std::string _author, std::string _publisher, std::string _bPubDate)
 {
     this->bISBN = _isbn;
     this->bTitle = _title;
     this->bAuthor = _author;
     this->bPublisher = _publisher;
-    Date *publishDate = Date::Parse(_pubDate);
+    Date *publishDate = Date::Parse(_bPubDate);
     if (publishDate != nullptr)
     {
-        this->pubDate = *publishDate;
+        this->bPubDate = *publishDate;
         delete publishDate;
         publishDate = nullptr;
     }
@@ -53,10 +61,18 @@ void Book::changeInfo(ull _isbn, std::string _title, std::string _author, std::s
 std::string Book::toString() const
 {
     std::stringstream writer;
-    writer << this->bISBN << ","<< this->bTitle << "," << this->bAuthor << "," << this->bPublisher << "," << this->pubDate.toString();
+    writer << this->bISBN << ","<< this->bTitle << "," << this->bAuthor << "," << this->bPublisher << "," << this->bPubDate.toString();
     for (int i = this->bCopies.size() - 1; i >= 0; --i)
         writer << "," << this->bCopies[i].toString();
     return writer.str();
+}
+
+std::string Book::checkOut()
+{
+    int n = this->bCopies.size();
+    for (int i = 0; i < n; ++i)
+        if (bCopies[i].checkOut() == true) return bCopies[i].toString();
+    return "";
 }
 
 // Friend function
