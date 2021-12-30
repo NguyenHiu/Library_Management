@@ -13,28 +13,13 @@ class BookCopies
 {
 private:
     std::string bBarCode;
-    Date bBorrowed, bDueDate, bPubDate;
+    Date bBorrowed, bDueDate;
     BookStatus bStatus;
 
 public:
-    BookCopies(std::string _barCode, Date _pubDate);
-    /* {
-        bBarCode = _barCode;
-        bPubDate = _pubDate;
-        bStatus = Available;
-    } */
+    BookCopies(std::string _barCode);
 
 public:
     bool checkOut();
-    /* {
-        if (bStatus == Available)
-        {
-            Date _today;
-            bStatus = Loaned;
-            bBorrowed = _today;
-            bDueDate = bBorrowed + 7;
-            return true;
-        }
-        return false;
-    } */
+    std::string toString() const;
 };

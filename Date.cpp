@@ -37,6 +37,14 @@ Date Date::operator+(const int &num)
     return temp;
 }
 
+Date &Date::operator=(const Date &other)
+{
+    this->dDay = other.dDay;
+    this->dMon = other.dMon;
+    this->dYear = other.dYear;
+    return *this;
+}
+
 // Member function
 void Date::toNextMonth()
 {
@@ -55,6 +63,19 @@ int Date::maxDay()
         return DAY_A_MONTH[this->dMon - 1];
     else
         return SpecialFeb;
+}
+
+std::string Date::toString() const
+{
+    std::stringstream writer;
+    if (this->dDay < 10)
+        writer << '0';
+    writer << this->dDay << "/";
+    if (this->dMon < 10)
+        writer << '0';
+    writer << this->dMon << "/";
+    writer << this->dYear;
+    return writer.str();
 }
 
 void Date::print()

@@ -15,98 +15,24 @@ private:
     std::unordered_map<std::string, std::vector<ull>> lMetaData;
 
 public:
+    ull checkISBN(std::string _isbn);
     bool loadBooks();
-    /* {
-        std::ifstream fi(BOOKS);
-        if (fi.is_open())
-        {
-            std::string line = "";
-            while (!fi.eof())
-            {
-                std::getline(fi, line);
-                std::vector<std::string> tokens = Tokenizer::Parse(line, ",");
-                Book b(tokens);
-                lBooks.push_back(b);
-            }
-            fi.close();
-            return true;
-        }
-        return false;
-    } */
-
+    void insertBook(Book other);
+    Book *removeBook(ull _isbn);
+    bool changeBook(int _index, ull _isbn, std::string _title, std::string _author, std::string _publisher, std::string _pubDate);
     void createSearchData();
-    /* {
-        for (int i = lBooks.size() - 1; i >= 0; --i)
-        {
-            std::vector<std::string> tokens = Data::removeStopWord(Data::dStopwords, lBooks[i].bTitle);
-            for (int j = tokens.size() - 1; j >= 0; --j)
-            {
-                if (lMetaData.find(tokens[j]) == lMetaData.end())
-                {
-                    lMetaData.insert(std::make_pair(tokens[j], std::vector<ull>()));
-                }
-                lMetaData[tokens[j]].push_back(lBooks[i].bISBN);
-            }
-        }
-    } */
-    bool loadPerson();
+    bool loadPerson(); // Not yet
+    void upToDate(); // Not yet
+    void saveFile();
 };
 
 class Utility
 {
 public:
-    static Book *searchByISBN(Library lib, ull _isbn);
-    /* {
-        int l = 0, r = lib.lBooks.size() - 1;
-        while (l < r)
-        {
-            int pos = l + double((r - l) / double(lib.lBooks[r].bISBN - lib.lBooks[l].bISBN)) * (_isbn - lib.lBooks[l].bISBN);
-            if (_isbn == lib.lBooks[pos].bISBN)
-                return new Book(lib.lBooks[pos]);
-            else if (_isbn < lib.lBooks[pos].bISBN)
-                r = pos - 1;
-            else
-                l = pos + 1;
-        }
-        return nullptr;
-    } */
-
-    /* static Book *searchByISBN(Library lib, std::string query)
-    {
-        int l = 0, r = lib.lBooks.size() - 1;
-        ull x = std::stoull(query);
-        while (l < r)
-        {
-            int pos = l + double((r - l) / double(lib.lBooks[r].bISBN - lib.lBooks[l].bISBN)) * (x - lib.lBooks[l].bISBN);
-            if (x == lib.lBooks[pos].bISBN)
-                return new Book(lib.lBooks[pos]);
-            else if (x < lib.lBooks[pos].bISBN)
-                r = pos - 1;
-            else
-                l = pos + 1;
-        }
-        return nullptr;
-    } */
-
+    static int searchByISBN(Library lib, ull _isbn);
     static std::vector<Book> searchByTitle(Library lib, std::string query);
-    /* {
-        std::vector<Book> result;
-        std::vector<std::string> tokens = Data::removeStopWord(Data::dStopwords, query);
-        for (int i = tokens.size() - 1; i >= 0; --i)
-        {
-            std::vector<ull> res = lib.lMetaData[tokens[i]];
-            for (int j = res.size() - 1; j >= 0; --j)
-            {
-                Book *b = Utility::searchByISBN(lib, res[j]);
-                if (b != nullptr && std::find(result.begin(), result.end(), *b) == result.end())
-                {
-                    std::cout << "Get one!" << std::endl;
-                    result.push_back(*b);
-                    delete b;
-                    b = nullptr;
-                }
-            }
-        }
-        return result;
-    } */
+    static int reportBooksQuantity(Library lib);
+    static int reportMembersQuantity(Library lib);               // Not yet
+    static std::vector<Book> reportBooksLoaned(Library lib);     // Not yet
+    static std::vector<Person> reportPeopleOverdue(Library lib); // Not yet
 };

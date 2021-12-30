@@ -1,10 +1,9 @@
 #include "BookCopies.h"
 
 // Constructor and Destructor
-BookCopies::BookCopies(std::string _barCode, Date _pubDate)
+BookCopies::BookCopies(std::string _barCode)
 {
     this->bBarCode = _barCode;
-    this->bPubDate = _pubDate;
     this->bStatus = Available;
 }
 
@@ -16,8 +15,15 @@ bool BookCopies::checkOut()
         Date _today;
         this->bStatus = Loaned;
         this->bBorrowed = _today;
-        this->bDueDate = bBorrowed + 7;
+        this->bDueDate = this->bBorrowed + 7;
         return true;
     }
     return false;
+}
+
+std::string BookCopies::toString() const
+{
+    std::stringstream writer;
+    writer << this->bBarCode;
+    return writer.str();
 }
