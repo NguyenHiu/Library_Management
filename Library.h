@@ -2,6 +2,7 @@
 #include "DevLibraries.h"
 #include "Book.h"
 #include "Person.h"
+#include "BorrowCard.h"
 
 class Library
 {
@@ -11,6 +12,7 @@ public:
 private:
     std::vector<Book> lBooks;
     std::vector<Person> lPerson;
+    std::vector<BorrowCard> lBCards;
     // ISBN increasing
     std::unordered_map<std::string, std::vector<ull>> lMetaData;
 

@@ -1,5 +1,12 @@
 #include "Date.h"
 
+int countDay(int d, int m, int y)
+{
+    m = (m + 9) % 12;
+    y = y - m / 10;
+    return 365 * y + y / 4 - y / 100 + y / 400 + (m * 306 + 5) / 10 + (d - 1);
+}
+
 // Constructor and Destructor
 Date::Date()
 {
@@ -37,12 +44,27 @@ Date Date::operator+(const int &num)
     return temp;
 }
 
+int Date::operator-(const Date &other)
+{
+    return countDay(this->dDay, this->dMon, this->dYear) - countDay(other.dDay, other.dMon, other.dYear);
+}
+
 Date &Date::operator=(const Date &other)
 {
     this->dDay = other.dDay;
     this->dMon = other.dMon;
     this->dYear = other.dYear;
     return *this;
+}
+
+bool Date::operator==(const Date &other)
+{
+    return (this->dDay == other.dDay && this->dMon == other.dMon && this->dYear == other.dYear);
+}
+
+bool Date::operator>(const Date &other)
+{
+    return (this->dYear * 10000 + this->dMon * 100 + this->dDay > other.dYear * 10000 + other.dMon * 100 + other.dDay);
 }
 
 // Member function
@@ -76,11 +98,6 @@ std::string Date::toString() const
     writer << this->dMon << "/";
     writer << this->dYear;
     return writer.str();
-}
-
-void Date::print()
-{
-    cout << this->dDay << "/" << this->dMon << "/" << this->dYear << endl;
 }
 
 Date *Date::Parse(std::string line)

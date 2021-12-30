@@ -17,17 +17,18 @@ public:
 
 public:
     Date operator+(const int &num);
+    int operator-(const Date &other);
     Date &operator=(const Date &other);
+    bool operator==(const Date &other);
+    bool operator>(const Date &other);
 
 public:
     void toNextMonth();
     int maxDay();
-    void print();
     std::string toString() const;
 
 public:
     static Date *Parse(std::string line);
     static bool IsLeapYear(int _year);
     static bool IsValidDate(int _date, int _mon, int _year);
-
 };
