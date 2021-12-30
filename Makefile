@@ -12,6 +12,9 @@ BookCopies.o: BookCopies.h BookCopies.cpp DevLibraries.h
 BorrowCard.o: Date.h BorrowCard.h BorrowCard.cpp DevLibraries.h
 	$(CC) -g -c BorrowCard.cpp
 
+Utility.o: AccountList.h Library.h Utility.h Utility.cpp
+	$(CC) -g -c Utility.cpp
+
 Library.o: Library.h Library.cpp DevLibraries.h
 	$(CC) -g -c Library.cpp
 

@@ -1,16 +1,33 @@
 #pragma once
-//#include "DevLibraries.h"
+#include "DevLibraries.h"
 //#include "Date.h"
-//#include "Library.h"
+#include "Library.h"
 #include "Account.h"
 
-class Librarian : public Account
+enum ReturnStatus
+{
+    Late,
+    Early,
+    OnTime
+};
+
+class Librarian : public Account, public Library
 {
 public:
-    Librarian()
-    {
-        std::cout << "Librarian\n";
-    }
+    void removeAccount(std::string username);
+    void addBook(Book _book);
+    bool removeBook(ull _isbn);
+    bool modifyBook(std::vector<std::string> _tokens);
+    std::string lookUpMemberByName(std::string _name);
+    std::string lookUpMemberByIDCard(std::string _id);
+    std::string lookUpBorrowCard(std::string _id);
+    std::vector<std::string> getMembers();
+    std::vector<std::string> getBooksLoaned();
+    std::vector<std::string> getMembersOverdue();
+    int getTotalMembersByGender(bool _gender);
+    std::string createBorrowCard(std::string _isbn);
+    ReturnStatus removeBorrowCard(std::string _barcode);
+    
     /*bool addBookItem(Library _lib, std::string _isbn, std::string _title, std::string _publisher, std::string _language, std::string _pages)
     {
     }*/

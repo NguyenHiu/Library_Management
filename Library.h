@@ -10,9 +10,9 @@ class Library
 public:
     friend class Utility;
 
-private:
+protected:
     std::vector<Book> lBooks;
-    std::vector<Person> lPerson;
+    std::vector<Person> lPeople;
     std::vector<BorrowCard> lBCards;
 
     // ISBN increasing
