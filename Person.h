@@ -11,9 +11,9 @@ private:
     Date pDayOfBirth;
 public:
     Person();
-    Person(std::vector<std::string>);
-    bool operator==(const Person&);
-    void changeProfile(std::string, std::string, std::string, Date, std::string, std::string, bool);
+    Person(std::vector<std::string> info);
+    bool operator==(const Person& other);
+    void changeProfile(std::string Name, std::string Email, std::string Phone, Date DoB, std::string ID, std::string Addr, bool gender);
     string toString() const;
 };
 

@@ -1,8 +1,9 @@
 #pragma once
 #include "DevLibraries.h"
-//#include "Date.h"
+#include "Date.h"
 #include "Library.h"
 #include "Account.h"
+#include "AccountList.h"
 
 enum ReturnStatus
 {
@@ -11,22 +12,22 @@ enum ReturnStatus
     OnTime
 };
 
-class Librarian : public Account, public Library
+class Librarian : public Account, public Library, public AccountList
 {
 public:
     void removeAccount(std::string username);
-    void addBook(Book _book);
-    bool removeBook(ull _isbn);
-    bool modifyBook(std::vector<std::string> _tokens);
-    std::string lookUpMemberByName(std::string _name);
-    std::string lookUpMemberByIDCard(std::string _id);
-    std::string lookUpBorrowCard(std::string _id);
+    void addBook(Book book);
+    bool removeBook(ull isbn);
+    bool modifyBook(std::vector<std::string> tokens);
+    std::string lookUpMemberByName(std::string name);
+    std::string lookUpMemberByIDCard(std::string id);
+    std::string lookUpBorrowCard(std::string id);
     std::vector<std::string> getMembers();
     std::vector<std::string> getBooksLoaned();
     std::vector<std::string> getMembersOverdue();
-    int getTotalMembersByGender(bool _gender);
-    std::string createBorrowCard(std::string _isbn);
-    ReturnStatus removeBorrowCard(std::string _barcode);
+    std::vector<std::string> getMemberByGender(bool gender);
+    std::string createBorrowCard(std::string isbn);
+    ReturnStatus removeBorrowCard(std::string barcode);
     
     /*bool addBookItem(Library _lib, std::string _isbn, std::string _title, std::string _publisher, std::string _language, std::string _pages)
     {
