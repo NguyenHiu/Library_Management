@@ -53,5 +53,48 @@ Account::Account(std::string ID, std::string US, std::string Pass, Person info)
 
 bool Account::checkLogOut(std::string US, std::string Pass)
 {
-    
+    return (
+        aUsername == US
+    &&  aPassword == Pass
+    );
+}
+
+bool Account::changePass(std::string Pass)
+{
+    aPassword = Pass;
+    return true;
+}
+
+bool Account::resetPass()
+{
+    aPassword = "Default-Password";
+    return true;
+}
+
+bool Account::updateProfile(std::vector<std::string> profile)
+{
+    // chua biet profile co bao gom aInfo va aBooksBorrowed khong
+}
+
+bool Account::blockAccount()
+{
+    aStatus = Canceled;
+    return true;
+}
+
+void Account::updateBooksBorrowed(std::vector<std::string> bList)
+{
+    aBooksBorrowed.resize(bList.size());
+    aBooksBorrowed = bList;
+}
+
+std::vector<std::string> Account::displayBorrowedBooks()
+{
+    return aBooksBorrowed;
+}
+
+std::string Account::toString() const
+{
+    // toString...
+    return "<Install now>";
 }
