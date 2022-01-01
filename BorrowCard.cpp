@@ -39,7 +39,7 @@ Date BorrowCard::extendDate()
 
 std::string BorrowCard::getInfo()
 {
-    stringstream writer;
+    std::stringstream writer;
     writer << this->bcID
            << "," << this->bcAccountID
            << "," << this->bcISBN
@@ -50,7 +50,7 @@ std::string BorrowCard::getInfo()
 
 std::string BorrowCard::toString() const
 {
-    stringstream writer;
+    std::stringstream writer;
     writer << this->bcID
            << "," << this->bcAccountID
            << "," << this->bcISBN
