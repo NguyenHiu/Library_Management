@@ -30,7 +30,7 @@ public:
     std::string toString() const;
 
 public:
-    static Date Parse(std::string line);
+    static Date *Parse(std::string line);
     static bool IsLeapYear(int _year);
     static bool IsValidDate(int _date, int _mon, int _year);
 };

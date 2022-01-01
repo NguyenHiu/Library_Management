@@ -71,7 +71,9 @@ std::istream& operator>>(std::istream& in, Date& date)
 {
     std::string d;
     in >> d;
-    date = Date::Parse(d);
+    Date* temp = Date::Parse(d);
+    date = *temp;
+    delete temp;
     return in;
 }
 
@@ -108,7 +110,7 @@ std::string Date::toString() const
     return writer.str();
 }
 
-Date Date::Parse(std::string line)
+Date *Date::Parse(std::string line)
 {
     std::vector<std::string> tokens = Tokenizer::Parse(line, "/");
     std::vector<int> numbers;
@@ -119,12 +121,10 @@ Date Date::Parse(std::string line)
         numbers.push_back(num);
     }
 
-    return Date(numbers[0], numbers[1], numbers[2]);
-
-    /*if (Date::IsValidDate(numbers[0], numbers[1], numbers[2]))
+    if (Date::IsValidDate(numbers[0], numbers[1], numbers[2]))
         return new Date(numbers[0], numbers[1], numbers[2]);
     else
-        return nullptr;*/
+        return nullptr;
 }
 
 bool Date::IsLeapYear(int _year)
