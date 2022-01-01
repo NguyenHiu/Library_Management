@@ -32,8 +32,7 @@ bool AccountList::loadUsers()
 
 bool AccountList::loadCurUserInfo()
 {
-    // hình như hàm thiếu username nhỉ
-    // hay hàm này nhận username + password từ UI hả ._.
+   
 }
 
 bool AccountList::saveUsers()
@@ -59,5 +58,5 @@ bool AccountList::saveUsers()
 
 bool AccountList::saveCurUserInfo()
 {
-    // Hàm này chắc đợi xem hàm loadCurUserInfo thế nào đã
+    
 }
