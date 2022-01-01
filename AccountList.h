@@ -4,14 +4,8 @@
 #include <fstream>
 #include <iostream>
 
-// Class User nay theo UML thi thuoc tinh la private
-// Nhung T.H nghi la moi AccountList co User, ma chi co Librarian moi tac dong duoc AccountList
-// Nen cho public de khoi can get/set
 class User
 {
-public:
-    friend class Utility; 
-    // Tai sao lai friend voi Utility?
 public:
     std::string user, pass, ID;
     AccountStatus status;
@@ -21,11 +15,16 @@ public:
         pass = pw;
         ID = id;
     }
+    bool isThisUser(std::string username) {
+        return (username == user);
+    }
 };
 
 class AccountList
 {
-private:
+public:
+    friend class Utility;
+protected:
     std::vector<User> aList;
     Account aCurUser; // Moi lan su dung chi co 1 User
 public:

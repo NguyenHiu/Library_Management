@@ -26,6 +26,9 @@ public:
     bool savePeople(); // Not yet
     bool saveBooks(); // Not yet
     bool saveBorrowCards(); // Not yet
+    // support functions:
+    int shouldPutBookHere(ull isbn); // for book
+    int findBookPos(ull isbn);
 
 public:
     void createSearchData();

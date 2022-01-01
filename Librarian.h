@@ -29,6 +29,8 @@ public:
     std::string createBorrowCard(std::string isbn);
     ReturnStatus removeBorrowCard(std::string barcode);
     
+    
+
     /*bool addBookItem(Library _lib, std::string _isbn, std::string _title, std::string _publisher, std::string _language, std::string _pages)
     {
     }*/

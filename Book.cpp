@@ -80,4 +80,9 @@ std::string Book::checkOut()
     return "";
 }
 
+ull Book::getISBN()
+{
+    return bISBN;
+}
+
 // Friend function

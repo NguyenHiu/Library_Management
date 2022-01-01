@@ -1,6 +1,7 @@
 #pragma once
 #include "DevLibraries.h"
 #include "BookCopies.h"
+#include "Date.h"
 
 class Book
 {
@@ -25,4 +26,6 @@ public:
 	void changeInfo(ull _isbn, std::string _title, std::string _author, std::string _publisher, std::string _pubDate);
 	std::string checkOut();
 	std::string toString() const;
+
+	ull getISBN();
 };

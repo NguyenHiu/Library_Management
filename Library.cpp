@@ -84,3 +84,51 @@ bool Library::saveBooks()
 }
 
 // Friend function
+
+// support functions:
+
+// find the appropriate position for book
+int Library::shouldPutBookHere(ull _isbn)
+{
+    int size = lBooks.size(), l = 0, r = size-1;
+    int pos;
+    while (l < r)
+    {
+        pos = l + double((r - l) / double(lBooks[r].getISBN() - lBooks[l].getISBN())) * (_isbn - lBooks[l].getISBN());
+        if (pos < 0)
+            return 0;
+        if (pos >= size)
+            return size;
+        if (_isbn == lBooks[pos].getISBN())
+            return -1;
+        if (l+1 == r)
+            return l;
+        if (_isbn < lBooks[pos].getISBN())
+            r = pos - 1;
+        else
+            l = pos + 1;
+    }
+    return l;
+} 
+
+// find position of book in lBooks with isbn
+int Library::findBookPos(ull _isbn)
+{
+    int size = lBooks.size(), l = 0, r = size-1;
+    int pos;
+    while (l < r)
+    {
+        pos = l + double((r - l) / double(lBooks[r].getISBN() - lBooks[l].getISBN())) * (_isbn - lBooks[l].getISBN());
+        if (pos < 0 || pos >= size)
+            return -1;
+        if (_isbn == lBooks[pos].getISBN())
+            return pos;
+        if (l+1 == r)
+            return l;
+        if (_isbn < lBooks[pos].getISBN())
+            r = pos - 1;
+        else
+            l = pos + 1;
+    }
+    return -1;
+}
