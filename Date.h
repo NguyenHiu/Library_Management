@@ -1,6 +1,7 @@
 #pragma once
 #include "DevLibraries.h"
-using namespace std;
+#include <sstream>
+#include <iostream>
 
 const int DAY_A_MONTH[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 const int SpecialFeb = 29;
@@ -21,6 +22,7 @@ public:
     Date &operator=(const Date &other);
     bool operator==(const Date &other);
     bool operator>(const Date &other);
+    friend std::istream& operator>>(std::ifstream& in, Date&);
 
 public:
     void toNextMonth();
@@ -28,7 +30,7 @@ public:
     std::string toString() const;
 
 public:
-    static Date *Parse(std::string line);
+    static Date Parse(std::string line);
     static bool IsLeapYear(int _year);
     static bool IsValidDate(int _date, int _mon, int _year);
 };

@@ -67,6 +67,14 @@ bool Date::operator>(const Date &other)
     return (this->dYear * 10000 + this->dMon * 100 + this->dDay > other.dYear * 10000 + other.dMon * 100 + other.dDay);
 }
 
+std::istream& operator>>(std::istream& in, Date& date)
+{
+    std::string d;
+    in >> d;
+    date = Date::Parse(d);
+    return in;
+}
+
 // Member function
 void Date::toNextMonth()
 {
@@ -100,7 +108,7 @@ std::string Date::toString() const
     return writer.str();
 }
 
-Date *Date::Parse(std::string line)
+Date Date::Parse(std::string line)
 {
     std::vector<std::string> tokens = Tokenizer::Parse(line, "/");
     std::vector<int> numbers;
@@ -111,10 +119,12 @@ Date *Date::Parse(std::string line)
         numbers.push_back(num);
     }
 
-    if (Date::IsValidDate(numbers[0], numbers[1], numbers[2]))
+    return Date(numbers[0], numbers[1], numbers[2]);
+
+    /*if (Date::IsValidDate(numbers[0], numbers[1], numbers[2]))
         return new Date(numbers[0], numbers[1], numbers[2]);
     else
-        return nullptr;
+        return nullptr;*/
 }
 
 bool Date::IsLeapYear(int _year)

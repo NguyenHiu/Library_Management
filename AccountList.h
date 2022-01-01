@@ -13,12 +13,13 @@ public:
     friend class Utility; 
     // Tai sao lai friend voi Utility?
 public:
-    std::string user, pass;
+    std::string user, pass, ID;
     AccountStatus status;
 public:
-    User(std::string us, std::string pw) {
+    User(std::string us, std::string pw, std::string id) {
         user = us;
         pass = pw;
+        ID = id;
     }
 };
 

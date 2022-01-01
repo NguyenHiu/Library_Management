@@ -26,11 +26,15 @@ public:
     bool checkLogOut(std::string US, std::string Pass);
     bool changePass(std::string Pass);
     bool resetPass();
-    bool updateProfile(vector<string> profile);
+    bool updateProfile(std::vector<std::string> profile);
     bool blockAccount();
     void updateBooksBorrowed(std::vector<std::string> list);
     std::vector<std::string> displayBorrowedBooks();
-    string toString() const;
+    std::string toString() const;
+     
+    std::string getUserName(); // Hàm này hỗ trợ loadCurUserInfo() trong việc lấy Username ra so sánh
+    void setInfo(Person info);
+    Person getInfo();
 };
 
 Account::Account()
@@ -97,4 +101,19 @@ std::string Account::toString() const
 {
     // toString...
     return "<Install now>";
+}
+
+std::string Account::getUserName()
+{
+    return aUsername;
+}
+
+void Account::setInfo(Person info)
+{
+    aInfo = info;
+}
+
+Person Account::getInfo()
+{
+    return aInfo;
 }
