@@ -30,14 +30,14 @@ void Librarian::removeAccount(std::string username)
 void Librarian::addBook(Book book)
 {
     // Same idea with searchISBN
-    int pos = shouldPutBookHere(book.getISBN());
+    int pos = this->getBookIndexToInsert(book.getID());
     
     if (pos == -1)
         return; // Trung ISBN --> Khong them duoc
-    if (pos == lBooks.size())
+    if (pos == this->lBooks.size())
         lBooks.push_back(book);
     else
-        lBooks.insert(lBooks.begin()+pos, book);
+        lBooks.insert(lBooks.begin() + pos, book);
 }
 
 bool Librarian::removeBook(ull isbn)
