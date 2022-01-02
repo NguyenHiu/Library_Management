@@ -14,6 +14,7 @@ public:
     BorrowCard(std::vector<std::string>);
 
 public:
+    ull getID();
     int getDateDis();
     Date getReturnDate();
     Date extendDate();

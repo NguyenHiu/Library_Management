@@ -5,10 +5,6 @@
 
 class Book
 {
-public:
-	friend class Utility;
-	friend class Library;
-
 private:
 	ull bISBN; // 10 digits ISBN
 	std::string bTitle, bAuthor, bPublisher;
@@ -26,6 +22,7 @@ public:
 	void changeInfo(ull _isbn, std::string _title, std::string _author, std::string _publisher, std::string _pubDate);
 	std::string checkOut();
 	std::string toString() const;
-
-	ull getISBN();
+	std::string getTitle();
+	ull getID();
+	int getCopiesQuantity();
 };

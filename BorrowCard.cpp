@@ -43,6 +43,11 @@ BorrowCard::BorrowCard(std::vector<std::string> bcTokens)
 // Operator overloading
 
 // Member function
+ull BorrowCard::getID()
+{
+    return this->bcID;
+}
+
 int BorrowCard::getDateDis()
 {
     return this->bcDueDate - this->bcCreatedDate;

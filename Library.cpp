@@ -9,14 +9,14 @@ void Library::createSearchData()
 {
     for (int i = this->lBooks.size() - 1; i >= 0; --i)
     {
-        std::vector<std::string> tokens = Data::removeStopWord(Data::dStopwords, this->lBooks[i].bTitle);
+        std::vector<std::string> tokens = Data::removeStopWord(Data::dStopwords, this->lBooks[i].getTitle());
         for (int j = tokens.size() - 1; j >= 0; --j)
         {
             if (this->lMetaData.find(tokens[j]) == this->lMetaData.end())
             {
                 this->lMetaData.insert(std::make_pair(tokens[j], std::vector<ull>()));
             }
-            this->lMetaData[tokens[j]].push_back(this->lBooks[i].bISBN);
+            this->lMetaData[tokens[j]].push_back(this->lBooks[i].getID());
         }
     }
 }
@@ -176,34 +176,61 @@ bool Library::savePeople()
 
 // Friend function
 
-// support functions:
+// Protected functions:
 
 // find the appropriate position for book
-int Library::shouldPutBookHere(ull _isbn)
+int Library::getBookIndexToInsert(ull _isbn)
 {
-    int size = lBooks.size(), l = 0, r = size - 1;
-    int pos;
+    int _size = this->lBooks.size(), l = 0, r = _size - 1;
+
+    if (_isbn < this->lBooks[0].getID())
+        return 0;
+
+    if (_isbn > this->lBooks[_size - 1].getID())
+        return _size;
+
     while (l < r)
     {
-        pos = l + double((r - l) / double(lBooks[r].getISBN() - lBooks[l].getISBN())) * (_isbn - lBooks[l].getISBN());
-        if (pos < 0)
-            return 0;
-        if (pos >= size)
-            return size;
-        if (_isbn == lBooks[pos].getISBN())
+        int pos = l + double((r - l) / double(lBooks[r].getID() - lBooks[l].getID())) * (_isbn - lBooks[l].getID());
+        if (_isbn == lBooks[pos].getID())
             return -1;
         if (l + 1 == r)
             return l;
-        if (_isbn < lBooks[pos].getISBN())
+        if (_isbn < lBooks[pos].getID())
             r = pos - 1;
         else
             l = pos + 1;
     }
+
     return l;
 }
 
+int Library::getBCIndexToRemove(ull _bcID)
+{
+    int _size = this->lBCards.size(), l = 0, r = _size - 1;
+
+    if (_bcID < this->lBCards[0].getID())
+        return 0;
+
+    if (_bcID > this->lBCards[_size - 1].getID())
+        return _size;
+
+    while (l < r)
+    {
+        int pos = l + double((r - l) / double(lBCards[r].getID() - lBCards[l].getID())) * (_bcID - lBCards[l].getID());
+        if (_bcID == lBCards[pos].getID())
+            return pos;
+        if (_bcID < lBCards[pos].getID())
+            r = pos - 1;
+        else
+            l = pos + 1;
+    }
+
+    return -1;
+}
+
 // find position of book in lBooks with isbn
-int Library::findBookPos(ull _isbn)
+/* int Library::findBookPos(ull _isbn)
 {
     int size = lBooks.size(), l = 0, r = size - 1;
     int pos;
@@ -222,4 +249,4 @@ int Library::findBookPos(ull _isbn)
             l = pos + 1;
     }
     return -1;
-}
+} */

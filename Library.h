@@ -18,19 +18,22 @@ protected:
     // ISBN increasing
     std::unordered_map<std::string, std::vector<ull>> lMetaData;
 
-public:
-    ull checkISBN(std::string _isbn);
-    bool loadBooks();
-    bool loadPeople(); // Not yet
-    bool loadBorrowCards(); // Not yet
-    bool savePeople(); // Not yet
-    bool saveBooks(); // Not yet
-    bool saveBorrowCards(); // Not yet
-    // support functions:
-    int shouldPutBookHere(ull isbn); // for book
+protected:
+    int getBookIndexToInsert(ull isbn); // For book
+    int getBCIndexToRemove(ull bcID); // For BorrowCard
     int findBookPos(ull isbn);
 
 public:
+    ull checkISBN(std::string _isbn);
+    bool loadBooks();
+    bool loadPeople();
+    bool loadBorrowCards();
+    bool savePeople();
+    bool saveBooks();
+    bool saveBorrowCards();
+    // support functions:
+
+public:
     void createSearchData();
-    void upToDate(); // Not yet
+    void upToDate();
 };

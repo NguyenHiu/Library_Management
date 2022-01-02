@@ -80,9 +80,19 @@ std::string Book::checkOut()
     return "";
 }
 
-ull Book::getISBN()
+ull Book::getID()
 {
-    return bISBN;
+    return this->bISBN;
+}
+
+int Book::getCopiesQuantity()
+{
+    return this->bCopies.size();
+}
+
+std::string Book::getTitle()
+{
+    return this->bTitle;
 }
 
 // Friend function

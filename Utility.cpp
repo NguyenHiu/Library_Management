@@ -7,15 +7,15 @@
 int Utility::searchByISBN(Library lib, ull _isbn)
 {
     int _size = lib.lBooks.size();
+    if (_isbn < lib.lBooks[0].getID() || _isbn > lib.lBooks[_size - 1].getID())
+        return -1;
     int l = 0, r = _size - 1;
     while (l < r)
     {
-        int pos = l + double((r - l) / double(lib.lBooks[r].bISBN - lib.lBooks[l].bISBN)) * (_isbn - lib.lBooks[l].bISBN);
-        if (pos < 0 || pos >= _size)
-            return -1;
-        if (_isbn == lib.lBooks[pos].bISBN)
+        int pos = l + double((r - l) / double(lib.lBooks[r].getID() - lib.lBooks[l].getID())) * (_isbn - lib.lBooks[l].getID());
+        if (_isbn == lib.lBooks[pos].getID())
             return pos;
-        else if (_isbn < lib.lBooks[pos].bISBN)
+        else if (_isbn < lib.lBooks[pos].getID())
             r = pos - 1;
         else
             l = pos + 1;
@@ -60,6 +60,6 @@ int Utility::getBooksQuantity(Library lib)
     int n = lib.lBooks.size();
     int total = n;
     for (int i = 0; i < n; ++i)
-        total += lib.lBooks[i].bCopies.size() - 1;
+        total += lib.lBooks[i].getCopiesQuantity() - 1;
     return total;
 }
