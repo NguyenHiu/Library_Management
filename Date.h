@@ -1,7 +1,5 @@
 #pragma once
 #include "DevLibraries.h"
-#include <sstream>
-#include <iostream>
 
 const int DAY_A_MONTH[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 const int SpecialFeb = 29;
@@ -22,7 +20,7 @@ public:
     Date &operator=(const Date &other);
     bool operator==(const Date &other);
     bool operator>(const Date &other);
-    friend std::istream& operator>>(std::ifstream& in, Date&);
+    friend std::istream& operator>>(std::ifstream& in, Date& other);
 
 public:
     void toNextMonth();

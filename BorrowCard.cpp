@@ -50,7 +50,8 @@ ull BorrowCard::getID()
 
 int BorrowCard::getDateDis()
 {
-    return this->bcDueDate - this->bcCreatedDate;
+    Date _today;
+    return this->bcDueDate - _today;
 }
 
 Date BorrowCard::getReturnDate()

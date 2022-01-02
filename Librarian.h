@@ -15,19 +15,19 @@ enum ReturnStatus
 class Librarian : public Account, public Library, public AccountList
 {
 public:
-    void removeAccount(std::string username);
-    void addBook(Book book);
+    bool removeAccount(std::string username);
+    bool addBook(Book book);
     bool removeBook(ull isbn);
     bool modifyBook(std::vector<std::string> tokens);
     std::string lookUpMemberByName(std::string name);
     std::string lookUpMemberByIDCard(std::string id);
-    std::string lookUpBorrowCard(std::string id);
+    std::string lookUpBorrowCard(ull id);
     std::vector<std::string> getMembers();
     std::vector<std::string> getBooksLoaned();
     std::vector<std::string> getMembersOverdue();
     std::vector<std::string> getMemberByGender(bool gender);
-    std::string createBorrowCard(std::string isbn);
-    ReturnStatus removeBorrowCard(std::string barcode);
+    std::string createBorrowCard(ull isbn);
+    ReturnStatus removeBorrowCard(ull bcID);
     
     /* Book *Library::removeBook(ull _isbn)
 {

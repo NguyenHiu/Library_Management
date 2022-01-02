@@ -15,6 +15,7 @@ protected:
     std::vector<Person> lPeople;
     std::vector<BorrowCard> lBCards;
 
+private:
     // ISBN increasing
     std::unordered_map<std::string, std::vector<ull>> lMetaData;
 
@@ -31,7 +32,6 @@ public:
     bool savePeople();
     bool saveBooks();
     bool saveBorrowCards();
-    // support functions:
 
 public:
     void createSearchData();

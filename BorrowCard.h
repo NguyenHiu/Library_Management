@@ -10,8 +10,8 @@ private:
 
 public:
     BorrowCard();
-    BorrowCard(ull, ull, ull, ull);
-    BorrowCard(std::vector<std::string>);
+    BorrowCard(ull ID, ull accID, ull ISBN, ull Barcode);
+    BorrowCard(std::vector<std::string> bcTokens);
 
 public:
     ull getID();
