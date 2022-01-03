@@ -8,7 +8,7 @@ Person::Person()
     pIdentityCard = "";
     pAddress = "";
     pGender = false;
-    pDayOfBirth = Date(0,0,0);
+    pDayOfBirth = Date(0, 0, 0);
 }
 
 Person::Person(std::vector<std::string> pInfo)
@@ -19,22 +19,17 @@ Person::Person(std::vector<std::string> pInfo)
     pIdentityCard = pInfo[3];
     pAddress = pInfo[4];
     pGender = (pInfo[5] == "1" ? 1 : 0);
-    Date* temp = Date::Parse(pInfo[6]);
+    Date *temp = Date::Parse(pInfo[6]);
     pDayOfBirth = *temp;
     delete temp;
 }
 
-bool Person::operator==(const Person& other)
+bool Person::operator==(const Person &other)
 {
     return (
-            pName           == other.pName 
-        &&  pEmail          == other.pEmail
-        &&  pPhone          == other.pPhone
-        &&  pIdentityCard   == other.pIdentityCard
-        &&  pAddress        == other.pAddress
+        pName == other.pName && pEmail == other.pEmail && pPhone == other.pPhone && pIdentityCard == other.pIdentityCard && pAddress == other.pAddress
         //&&  pDayOfBirth     == other.pDayOfBirth
-        &&  pGender         == other.pGender
-    );
+        && pGender == other.pGender);
 }
 
 void Person::changeProfile(std::string Name, std::string Email, std::string Phone, Date DoB, std::string ID, std::string Addr, bool gender)
@@ -56,9 +51,23 @@ void Person::changeProfile(std::vector<std::string> info)
     pIdentityCard = info[3];
     pAddress = info[4];
     pGender = (info[5] == "1" ? 1 : 0);
-    Date* temp = Date::Parse(info[6]);
+    Date *temp = Date::Parse(info[6]);
     pDayOfBirth = *temp;
     delete temp;
+}
+
+std::string Person::getContactInfo()
+{
+    std::stringstream writer;
+    writer << this->pName
+           << "," << this->pEmail
+           << "," << this->pPhone;
+    return writer.str();
+}
+
+std::string Person::getName()
+{
+    return this->pName;
 }
 
 std::string Person::toString() const
@@ -87,4 +96,9 @@ bool Person::isThisPersonIDC(std::string _id)
 std::string Person::getIDCard() 
 {
     return pIdentityCard;
+}
+
+bool Person::hasGender(bool gender)
+{
+    return this->pGender == gender;
 }

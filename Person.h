@@ -16,9 +16,12 @@ public:
     bool operator==(const Person& other);
     void changeProfile(std::string Name, std::string Email, std::string Phone, Date DoB, std::string ID, std::string Addr, bool gender);
     void changeProfile(std::vector<std::string> info);
+    std::string getContactInfo();
+    std::string getName();
     std::string toString() const;
     std::string getIDCard();
     
     bool isThisPerson(std::string username);
-    bool isThisPersonIDC(std::string _id);
+    bool Person::isThisPersonIDC(std::string _id);
+    bool hasGender(bool gender);
 };

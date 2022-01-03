@@ -121,8 +121,11 @@ std::string Librarian::lookUpMemberByIDCard(std::string _idc)
 std::string Librarian::lookUpBorrowCard(ull _id)
 {
     int pos = this->getBCIndexToRemove(_id);
+
+    // Case: Cannot find out
     if (pos == -1)
         return "";
+
     return this->lBCards[pos].getInfo();
 }
 
@@ -130,45 +133,79 @@ std::string Librarian::lookUpBorrowCard(ull _id)
 std::vector<std::string> Librarian::getMembers()
 {
     std::vector<std::string> res;
+
     int n = this->lPeople.size();
+
     for (int i = 0; i < n; ++i)
         res.push_back(this->lPeople[i].toString());
+
     return res;
 }
 
 std::vector<std::string> Librarian::getBooksLoaned()
 {
     std::vector<std::string> res;
+
     int n = this->lBCards.size();
+
     for (int i = 0; i < n; ++i)
     {
-        ull isbn = this->lBCards[i].getISBN();
+        // ID - Account ID - ISBN - ReturnedDate
+        std::vector<std::string> _info = this->lBCards[i].toMultipleString();
 
+        // In order to get Borrower's Name
+        int posPerson = std::stoi(_info[1]);
+
+        // In order to get Book's Title
+        ull _isbn = std::stoull(_info[2]);
+        int posBook = Utility::searchByISBN(*this, _isbn);
+
+        // Combined to string
+        // Format: ID - Title - Name - Returned Date
+        res.push_back(_info[0] + "," + this->lBooks[posBook].getTitle() + "," + this->lPeople[posPerson].getName() + "," + _info[3]);
     }
+    return res;
 }
 
 std::vector<std::string> Librarian::getMembersOverdue()
 {
     int n = this->lBCards.size();
+
     std::vector<std::string> res;
+
     for (int i = 0; i < n; ++i)
     {
         int dateDis = this->lBCards[i].getDateDis();
         if (dateDis <= 0)
         {
-            // Thêm hàm lấy person info
-            res.push_back(this->lBCards[i].toString());
+            // ID - Account ID - ISBN - ReturnedDate
+            std::vector<std::string> _info = this->lBCards[i].toMultipleString();
+
+            // In order to get Borrower's Name
+            int posPerson = std::stoi(_info[1]);
+
+            // In order to get Book's Title
+            ull _isbn = std::stoull(_info[2]);
+            int posBook = Utility::searchByISBN(*this, _isbn);
+
+            // Combined to string
+            // Format: Title - Person - Contact - Returned Date - The number of days overdue
+            res.push_back(this->lBooks[posBook].getTitle() + "," + this->lPeople[posPerson].getContactInfo() + "," + _info[3] + "," + std::to_string(-dateDis));
         }
     }
 
     return res;
 }
 
-// Not yet
-// std::vector<std::string> Librarian::getMemberByGender(bool gender)
-// {
-
-// }
+std::vector<std::string> Librarian::getMemberByGender(bool gender)
+{
+    std::vector<std::string> res;
+    int n = this->lPeople.size();
+    for (int i = 0; i < n; ++i)
+        if (this->lPeople[i].hasGender(gender))
+            res.push_back(this->lPeople[i].toString());
+    return res;
+}
 
 std::string Librarian::createBorrowCard(ull _isbn)
 {
@@ -176,10 +213,9 @@ std::string Librarian::createBorrowCard(ull _isbn)
     std::string barCode = this->lBooks[pos].checkOut();
     if (pos != 1 && barCode != "")
     {
-        // Chua trung khop du lieu, doi string thanh ull
-        // BorrowCard bc(this->lBCards.size(), this->aCurUser.getID(), _isbn, barCode);
-        // this->lBCards.push_back(bc);
-        // return bc.toString();
+        BorrowCard bc(this->lBCards.size(), this->aCurUser.getID(), _isbn, std::stoull(barCode));
+        this->lBCards.push_back(bc);
+        return bc.toString();
     }
     return "";
 }

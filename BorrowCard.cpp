@@ -53,6 +53,11 @@ ull BorrowCard::getISBN()
     return this->bcISBN;
 }
 
+ull BorrowCard::getAccountID()
+{
+    return this->bcAccountID;
+}
+
 int BorrowCard::getDateDis()
 {
     Date _today;
@@ -98,7 +103,7 @@ std::vector<std::string> BorrowCard::toMultipleString() const
     res.push_back(std::to_string(this->bcID));
     res.push_back(std::to_string(this->bcAccountID));
     res.push_back(std::to_string(this->bcISBN));
-    res.push_back(this->bcCreatedDate.toString());
+    // res.push_back(this->bcCreatedDate.toString());
     res.push_back(this->bcDueDate.toString());
     return res;
 }
