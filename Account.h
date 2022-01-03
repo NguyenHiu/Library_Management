@@ -42,4 +42,3 @@ public:
     }
     std::string getID() {return aID;}
 };
-
