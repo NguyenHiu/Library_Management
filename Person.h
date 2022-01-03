@@ -17,9 +17,12 @@ public:
     void changeProfile(std::string Name, std::string Email, std::string Phone, Date DoB, std::string ID, std::string Addr, bool gender);
     void changeProfile(std::vector<std::string> info);
     void writeOnFile(std::fstream& fo);
+    std::string getContactInfo();
+    std::string getName();
     std::string toString() const;
     
     bool isThisPerson(std::string username);
+    bool hasGender(bool gender);
     //friend std::istream& operator>>(std::istream& in, Person&);
     //friend std::ostream& operator<<(std::ostream& os, const Person&);  
 };

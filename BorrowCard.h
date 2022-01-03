@@ -16,6 +16,7 @@ public:
 public:
     ull getID();
     ull getISBN();
+    ull getAccountID();
     int getDateDis();
     Date getReturnDate();
     Date extendDate();

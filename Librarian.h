@@ -16,7 +16,7 @@ class Librarian : public Account, public Library, public AccountList
 {
 public:
     bool removeAccount(std::string username);
-    /*bool addBook(Book book);
+    bool addBook(Book book);
     bool removeBook(ull isbn);
     bool modifyBook(std::vector<std::string> tokens);
     std::string lookUpMemberByName(std::string name);
@@ -28,7 +28,7 @@ public:
     std::vector<std::string> getMembersOverdue();
     std::vector<std::string> getMemberByGender(bool gender);
     std::string createBorrowCard(ull isbn);
-    ReturnStatus removeBorrowCard(ull bcID);*/
+    ull removeBorrowCard(ull bcID);
     
     /* Book *Library::removeBook(ull _isbn)
 {
