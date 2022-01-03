@@ -15,9 +15,11 @@ public:
 
 public:
     ull getID();
+    ull getISBN();
     int getDateDis();
     Date getReturnDate();
     Date extendDate();
     std::string getInfo();
+    std::vector<std::string> toMultipleString() const;
     std::string toString() const;
 };

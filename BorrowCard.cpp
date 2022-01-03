@@ -29,10 +29,10 @@ BorrowCard::BorrowCard(std::vector<std::string> bcTokens)
 
     Date _today;
 
-    Date* _created = Date::Parse(bcTokens[++i]);
+    Date *_created = Date::Parse(bcTokens[++i]);
     this->bcCreatedDate = _created != nullptr ? *_created : _today;
 
-    Date* _due = Date::Parse(bcTokens[++i]);
+    Date *_due = Date::Parse(bcTokens[++i]);
     this->bcDueDate = _due != nullptr ? *_due : (this->bcCreatedDate + 14);
 
     delete _created;
@@ -46,6 +46,11 @@ BorrowCard::BorrowCard(std::vector<std::string> bcTokens)
 ull BorrowCard::getID()
 {
     return this->bcID;
+}
+
+ull BorrowCard::getISBN()
+{
+    return this->bcISBN;
 }
 
 int BorrowCard::getDateDis()
@@ -85,4 +90,15 @@ std::string BorrowCard::toString() const
            << "," << this->bcCreatedDate.toString()
            << "," << this->bcDueDate.toString();
     return writer.str();
+}
+
+std::vector<std::string> BorrowCard::toMultipleString() const
+{
+    std::vector<std::string> res;
+    res.push_back(std::to_string(this->bcID));
+    res.push_back(std::to_string(this->bcAccountID));
+    res.push_back(std::to_string(this->bcISBN));
+    res.push_back(this->bcCreatedDate.toString());
+    res.push_back(this->bcDueDate.toString());
+    return res;
 }
