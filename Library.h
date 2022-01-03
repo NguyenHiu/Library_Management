@@ -26,8 +26,8 @@ protected:
 
 public:
     ull checkISBN(std::string _isbn);
-    bool loadBooks();
-    bool loadPeople();
+    bool loadBooks(); //
+    bool loadPeople(); //
     bool loadBorrowCards();
     bool savePeople();
     bool saveBooks();

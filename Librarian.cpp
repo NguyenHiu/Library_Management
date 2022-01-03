@@ -6,8 +6,6 @@
 
 // Member function
 
-// Only remove accoount in vector<Person> of Library
-// T.H: Remove User in vector<User> of AccountList?
 bool Librarian::removeAccount(std::string username)
 {
     // Remove User in AccountList
@@ -30,10 +28,9 @@ bool Librarian::removeAccount(std::string username)
 
     return true;
 }
-
+/*
 bool Librarian::addBook(Book book)
 {
-    // Same idea with searchISBN
     int pos = this->getBookIndexToInsert(book.getID());
 
     // Case 1: Available
@@ -152,3 +149,4 @@ ReturnStatus Librarian::removeBorrowCard(ull _bcID)
     if (dateDis > 0)
         return Early;
 }
+*/
