@@ -19,6 +19,8 @@ private:
 public:
     Account();
     Account(std::string ID, std::string US, std::string Pass, Person info);
+
+public:
     bool checkLogOut(std::string US, std::string Pass);
     bool changePass(std::string Pass);
     bool resetPass();
@@ -27,6 +29,7 @@ public:
     void updateBooksBorrowed(std::vector<std::string> list);
     std::vector<std::string> displayBorrowedBooks();
     std::string toString() const;
+    std::string getID();
      
     std::string getUserName(); // Hàm này hỗ trợ loadCurUserInfo() trong việc lấy Username ra so sánh
     Person getInfo();

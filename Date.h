@@ -21,7 +21,7 @@ public:
     Date &operator=(const Date &other);
     bool operator==(const Date &other);
     bool operator>(const Date &other);
-    friend std::istream& operator>>(std::ifstream& in, Date&);
+    friend std::istream& operator>>(std::ifstream& in, Date& other);
 
 public:
     void toNextMonth();
