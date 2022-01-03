@@ -3,7 +3,6 @@
 #include "Book.h"
 #include "Person.h"
 #include "BorrowCard.h"
-#include "Utility.h"
 
 class Library
 {
@@ -36,4 +35,7 @@ public:
 public:
     void createSearchData();
     void upToDate();
+
+    //test functions:
+    void printBooks();
 };

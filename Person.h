@@ -16,10 +16,9 @@ public:
     bool operator==(const Person& other);
     void changeProfile(std::string Name, std::string Email, std::string Phone, Date DoB, std::string ID, std::string Addr, bool gender);
     void changeProfile(std::vector<std::string> info);
-    void writeOnFile(std::fstream& fo);
     std::string toString() const;
+    std::string getIDCard();
     
     bool isThisPerson(std::string username);
-    //friend std::istream& operator>>(std::istream& in, Person&);
-    //friend std::ostream& operator<<(std::ostream& os, const Person&);  
+    bool isThisPersonIDC(std::string _id);
 };

@@ -20,6 +20,8 @@ int Utility::searchByISBN(Library lib, ull _isbn)
         else
             l = pos + 1;
     }
+    if (l == r && lib.lBooks[l].getID() == _isbn)
+        return l;
     return -1;
 }
 

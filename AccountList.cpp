@@ -17,7 +17,6 @@ bool AccountList::loadUsers()
     {
         getline(f, line);
         std::vector<std::string> info = Tokenizer::Parse(line, ",");
-        std::cout << "\n";
         aList.push_back(User(info));
         line = "";
     }
@@ -29,7 +28,7 @@ bool AccountList::loadUsers()
 // Lấy thông tin của Person ứng với username từ tệp Person.csv cho vào aCurUser
 bool AccountList::loadCurUserInfo()
 {
-    std::string fileName = "Person.csv";
+    std::string fileName = "People.csv";
     
     std::ifstream f;
     f.open(fileName);
@@ -81,10 +80,7 @@ bool AccountList::saveUsers()
     for (int i = 0; i < aList.size(); i++)
     {
         if (i != 0) f << "\n";
-        f << aList[i].ID << "," 
-          << aList[i].user << ","
-          << aList[i].pass << ","
-          << (aList[i].status == Active ? "Active" : "Canceled") << ",";
+        f << aList[i].toString();    
     }
 
     f.close();
@@ -94,7 +90,7 @@ bool AccountList::saveUsers()
 // Gửi person trở về file 
 bool AccountList::saveCurUserInfo()
 {
-    std::string fileName = "Person.csv";
+    std::string fileName = "People.csv";
 
     std::ifstream fi;
     fi.open(fileName);
@@ -125,8 +121,6 @@ bool AccountList::saveCurUserInfo()
     }
     fi.close();
 
-    std::cout << " ** Pos: " << pos << "\n";
-
     // Nếu person chưa nằm trong file thì ghi vào cuối file
     if (pos == -1)
     {
@@ -134,7 +128,7 @@ bool AccountList::saveCurUserInfo()
         fo.open(fileName, std::ios::out | std::ios::app);
         if (fo.tellp() != 0)
             fo << "\n";
-        aCurUser.getInfo().writeOnFile(fo);
+        fo << aCurUser.getInfo().toString();
         fo.close();
         return true;
     }
@@ -143,11 +137,11 @@ bool AccountList::saveCurUserInfo()
     // Ghi đè và sau đó ghi các Person còn lại ở sau (đã lưu trong pList)
     std::fstream fo(fileName, std::ios::in | std::ios::out | std::ios::ate);
     fo.seekp(pos, fo.beg);
-    aCurUser.getInfo().writeOnFile(fo);
+    fo << aCurUser.getInfo().toString();
     for (auto i : pList)
     {
         fo << "\n";
-        i.writeOnFile(fo);
+        fo << i.toString();
     }
 
     fo.close();

@@ -28,9 +28,9 @@ Book::Book(std::vector<std::string> bTokens)
         Date _today;
         this->bPubDate = _today;
     }
-    while (i < n - 1)
+    while (++i < n - 1)
     {
-        std::string barCode = bTokens[++i];
+        std::string barCode = bTokens[i];
         BookCopies copies(barCode);
         this->bCopies.push_back(copies);
     }
@@ -61,13 +61,12 @@ void Book::changeInfo(ull _isbn, std::string _title, std::string _author, std::s
 std::string Book::toString() const
 {
     std::stringstream writer;
-    writer << this->bISBN
-           << "," << this->bTitle
-           << "," << this->bAuthor
-           << "," << this->bPublisher
-           << "," << this->bPubDate.toString();
-    /* for (int i = this->bCopies.size() - 1; i >= 0; --i)
-        writer << "," << this->bCopies[i].toString(); */
+    writer << this->bISBN << "," 
+           << this->bTitle << "," 
+           << this->bAuthor << "," 
+           << this->bPublisher << "," 
+           << this->bPubDate.toString() << ","; 
+    for (auto i : bCopies) writer << i.toString() << ",";
     return writer.str();
 }
 

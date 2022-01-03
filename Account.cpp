@@ -2,14 +2,14 @@
 
 Account::Account()
 {
-    aID = "";
+    aID = -1;
     aUsername = "";
     aPassword = "";
     aInfo = Person();
     aStatus = Active;
 }
 
-Account::Account(std::string ID, std::string US, std::string Pass, Person info)
+Account::Account(ull ID, std::string US, std::string Pass, Person info)
 {
     aID = ID;
     aUsername = US;
@@ -85,4 +85,9 @@ void Account::updateInfo(Person info)
 Person Account::getInfo()
 {
     return aInfo;
+}
+
+ull Account::getID()
+{
+    return aID;
 }

@@ -48,6 +48,7 @@ ull Library::checkISBN(std::string _isbn)
     return 0;
 }
 
+// Done
 bool Library::loadBooks()
 {
     //-----------------------------------------------------------------
@@ -59,7 +60,6 @@ bool Library::loadBooks()
     if (fi.is_open())
     {
         std::string line = "";
-        // std::getline(fi, line); // Remove header of CSV
         while (!fi.eof())
         {
             std::getline(fi, line);
@@ -72,6 +72,14 @@ bool Library::loadBooks()
     }
     return false;
 }
+
+//tetst
+void Library::printBooks()
+{
+    for (auto i : lBooks)
+        std::cout << i.toString() << "\n";
+}
+//
 
 bool Library::loadBorrowCards()
 {
@@ -98,6 +106,7 @@ bool Library::loadBorrowCards()
     return false;
 }
 
+// Done
 bool Library::loadPeople()
 {
     //----------------------------------------------------------
@@ -109,7 +118,6 @@ bool Library::loadPeople()
     if (fi.is_open())
     {
         std::string line = "";
-        // std::getline(fi, line); // Remove header of CSV
         while (!fi.eof())
         {
             std::getline(fi, line);
@@ -123,12 +131,14 @@ bool Library::loadPeople()
     return false;
 }
 
+// Done
 bool Library::saveBooks()
 {
     std::ofstream fo(BOOKS);
     if (fo.is_open())
     {
         int n = this->lBooks.size();
+        if (n <= 0) return true;
         for (int i = 0; i < n - 1; ++i)
         {
             fo << this->lBooks[i].toString() << std::endl;

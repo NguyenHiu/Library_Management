@@ -61,28 +61,30 @@ void Person::changeProfile(std::vector<std::string> info)
     delete temp;
 }
 
-void Person::writeOnFile(std::fstream& f)
-{
-    f << pName << "," << pEmail << "," 
-      << pPhone << "," << pIdentityCard << ","
-      << pAddress << "," << pGender << ","
-      << pDayOfBirth.toString() << ",";
-}
-
 std::string Person::toString() const
 {
     std::stringstream os;
-    os << "  + Name: " << pName << "\n"
-       << "  + Email: " << pEmail << "\n"
-       << "  + Phone: " << pPhone << "\n"
-       << "  + Identity Card: " << pIdentityCard << "\n"
-       << "  + Address: " << pAddress << "\n"
-       << "  + Gender: " << pGender << "\n"
-       << "  + Birthday: " << pDayOfBirth.toString() << "\n";
+    os << pName << ","
+       << pEmail << ","
+       << pPhone << ","
+       << pIdentityCard << ","
+       << pAddress << ","
+       << pGender << ","
+       << pDayOfBirth.toString() << ",";
     return os.str();
 }
 
 bool Person::isThisPerson(std::string username)
 {
     return (pName == username);
+}
+
+bool Person::isThisPersonIDC(std::string _id)
+{
+    return (pIdentityCard == _id);
+}
+
+std::string Person::getIDCard() 
+{
+    return pIdentityCard;
 }

@@ -6,6 +6,7 @@
 
 // Member function
 
+// Done
 bool Librarian::removeAccount(std::string username)
 {
     // Remove User in AccountList
@@ -14,9 +15,12 @@ bool Librarian::removeAccount(std::string username)
         if (this->aList[i].isThisUser(username))
         {
             aList.erase(aList.begin() + i);
-            break;
+            return true;
         }
 
+    return false;
+
+    /*
     // Remove Person in Library
     n = this->lPeople.size();
     for (int i = 0; i < n; i++)
@@ -25,10 +29,10 @@ bool Librarian::removeAccount(std::string username)
             lPeople.erase(lPeople.begin() + i);
             break;
         }
-
-    return true;
+    */
 }
-/*
+
+// Done
 bool Librarian::addBook(Book book)
 {
     int pos = this->getBookIndexToInsert(book.getID());
@@ -46,10 +50,10 @@ bool Librarian::addBook(Book book)
     return true;
 }
 
+// Done
 bool Librarian::removeBook(ull _isbn)
 {
     int pos = Utility::searchByISBN(*this, _isbn);
-
     // Case 1: Not available
     if (pos == -1)
         return false;
@@ -67,26 +71,51 @@ bool Librarian::removeBook(ull _isbn)
     return true;
 }
 
+// Done
 bool Librarian::modifyBook(std::vector<std::string> tokens)
 {
-    ull _isbn = std::stoull(tokens[0]);
+    ull _isbn = stoull(tokens[0]);
     int pos = Utility::searchByISBN(*this, _isbn);
-
-    if (pos == -1 || tokens.size() != 5)
+    // 6 vi co 1 string cuoi = "";
+    if (pos == -1 || tokens.size() != 6)
         return false;
-
-    int i = 0;
-    this->lBooks[pos].changeInfo(_isbn, tokens[++i], tokens[++i], tokens[++i], tokens[++i]);
-
+        
+    this->lBooks[pos].changeInfo(_isbn, tokens[1], tokens[2], tokens[3], tokens[4]);
     return true;
 }
 
+// Done
 std::string Librarian::lookUpMemberByName(std::string _name)
 {
+    ull id = -1;
+    int l = 0, r = aList.size()-1, pos;
+    while (l <= r)
+    {
+        pos = l + (r-l)/2;
+        if (aList[pos].isThisUser(_name))
+        {
+            id = aList[pos].ID;
+            break;
+        }
+        if (_name.compare(aList[pos].user) > 0)
+            l = pos + 1;
+        else
+            r = pos - 1;
+    }
+    
+    if (id == -1)
+        return "";
+    
+    return lPeople[id-1].toString();
 }
 
-std::string Librarian::lookUpMemberByIDCard(std::string _id)
+// Done
+std::string Librarian::lookUpMemberByIDCard(std::string _idc)
 {
+    for (auto i : lPeople)
+        if (i.isThisPersonIDC(_idc))
+            return i.toString();    
+    return "";
 }
 
 std::string Librarian::lookUpBorrowCard(ull _id)
@@ -97,6 +126,7 @@ std::string Librarian::lookUpBorrowCard(ull _id)
     return this->lBCards[pos].getInfo();
 }
 
+// Done
 std::vector<std::string> Librarian::getMembers()
 {
     std::vector<std::string> res;
@@ -135,10 +165,10 @@ std::vector<std::string> Librarian::getMembersOverdue()
 }
 
 // Not yet
-std::vector<std::string> Librarian::getMemberByGender(bool gender)
-{
+// std::vector<std::string> Librarian::getMemberByGender(bool gender)
+// {
 
-}
+// }
 
 std::string Librarian::createBorrowCard(ull _isbn)
 {
@@ -169,4 +199,3 @@ ull Librarian::removeBorrowCard(ull _bcID)
 
     return abs(dateDis) * TEN_THOUSAND_D;
 }
-*/

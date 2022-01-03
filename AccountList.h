@@ -5,17 +5,18 @@
 class User
 {
 public:
-    std::string user, pass, ID;
+    std::string user, pass;
+    ull ID;
     AccountStatus status;
 public:
-    User(std::string us, std::string pw, std::string id, AccountStatus _status) {
+    User(std::string us, std::string pw, ull id, AccountStatus _status) {
         user = us;
         pass = pw;
         ID = id;
         status = _status;
     }
     User(std::vector<std::string> info) {
-        ID = info[0]; 
+        ID = stoull(info[0]); 
         user = info[1];
         pass = info[2];
         status = (info[3] == "Active" ? AccountStatus::Active : AccountStatus::Canceled);
@@ -30,9 +31,9 @@ public:
     }
     std::string toString() {
         std::stringstream s;
-        s << " - Username: " << user << "\n - Password: " << pass
-          << "\n - ID: " << ID << "\n - Status: " 
-          << (status == Active ? "Active" : "Canceled") << "\n";
+        s << ID << "," << user << ","
+          << pass << "," 
+          << (status == Active ? "Active" : "Canceled") << ",";
         return s.str();
     }
     //
