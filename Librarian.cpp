@@ -42,16 +42,27 @@ bool Librarian::addBook(Book book)
         lBooks.push_back(book);
     else
         lBooks.insert(lBooks.begin() + pos, book);
+
     return true;
 }
 
-bool Librarian::removeBook(ull isbn)
+bool Librarian::removeBook(ull _isbn)
 {
-    int pos = findBookPos(isbn);
+    int pos = Utility::searchByISBN(*this, _isbn);
+
+    // Case 1: Not available
     if (pos == -1)
         return false;
 
-    // Dang lam ...
+    // Case 2: Available
+    // Check if anyone borrow this book
+    int n = this->lBCards.size();
+    for (int i = 0; i < n; ++i)
+        if (this->lBCards[i].getISBN() == _isbn)
+            return false;
+
+    // Remove that Book
+    this->lBooks.erase(this->lBooks.begin() + pos);
 
     return true;
 }
@@ -81,6 +92,8 @@ std::string Librarian::lookUpMemberByIDCard(std::string _id)
 std::string Librarian::lookUpBorrowCard(ull _id)
 {
     int pos = this->getBCIndexToRemove(_id);
+    if (pos == -1)
+        return "";
     return this->lBCards[pos].getInfo();
 }
 
@@ -95,6 +108,13 @@ std::vector<std::string> Librarian::getMembers()
 
 std::vector<std::string> Librarian::getBooksLoaned()
 {
+    std::vector<std::string> res;
+    int n = this->lBCards.size();
+    for (int i = 0; i < n; ++i)
+    {
+        ull isbn = this->lBCards[i].getISBN();
+
+    }
 }
 
 std::vector<std::string> Librarian::getMembersOverdue()
@@ -114,7 +134,11 @@ std::vector<std::string> Librarian::getMembersOverdue()
     return res;
 }
 
-std::vector<std::string> getMemberByGender(bool gender);
+// Not yet
+std::vector<std::string> Librarian::getMemberByGender(bool gender)
+{
+
+}
 
 std::string Librarian::createBorrowCard(ull _isbn)
 {
@@ -130,7 +154,7 @@ std::string Librarian::createBorrowCard(ull _isbn)
     return "";
 }
 
-ReturnStatus Librarian::removeBorrowCard(ull _bcID)
+ull Librarian::removeBorrowCard(ull _bcID)
 {
     int pos = this->getBCIndexToRemove(_bcID);
     int dateDis = 0;
@@ -140,13 +164,9 @@ ReturnStatus Librarian::removeBorrowCard(ull _bcID)
         this->lBCards.erase(this->lBCards.begin() + pos);
     }
 
-    if (dateDis == 0)
-        return OnTime;
+    if (dateDis == 0 || dateDis > 0)
+        return 0;
 
-    if (dateDis < 0)
-        return Late;
-
-    if (dateDis > 0)
-        return Early;
+    return abs(dateDis) * TEN_THOUSAND_D;
 }
 */

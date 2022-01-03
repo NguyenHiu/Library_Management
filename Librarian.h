@@ -20,6 +20,7 @@ public:
     bool removeBook(ull isbn);
     bool modifyBook(std::vector<std::string> tokens);
     std::string lookUpMemberByName(std::string name);
+    std::string lookUpMemberByAccID(ull id);
     std::string lookUpMemberByIDCard(std::string id);
     std::string lookUpBorrowCard(ull id);
     std::vector<std::string> getMembers();
