@@ -2,29 +2,24 @@
 
 AccountList::AccountList() {}
 
-// 
+// Checked!
 bool AccountList::loadUsers()
 {
-    std::string fileName = "User.csv";
+    std::string fileName = "Users.csv";
 
     std::ifstream f;
     f.open(fileName);
     if (f.is_open() == false)
         return false;
 
-    std::string us, pw, id;
-    while (getline(f, us))
+    std::string line;
+    while (!f.eof())
     {
-        // neu chua lay duoc password ma da het file thi file sai
-        if (f.eof()) {
-            f.close();
-            aList.clear();
-            return false;
-        }
-        f >> pw >> id; 
-        aList.push_back(User(us, pw, id));
-
-        us = ""; pw = ""; id = "";
+        getline(f, line);
+        std::vector<std::string> info = Tokenizer::Parse(line, ",");
+        std::cout << "\n";
+        aList.push_back(User(info));
+        line = "";
     }
 
     f.close();
@@ -41,39 +36,56 @@ bool AccountList::loadCurUserInfo()
     if (f.is_open() == false)
         return false;
 
-    std::string ans = aCurUser.getUserName();
-    Person temp;
-    while (f >> temp)
+    std::string ans = aCurUser.getUserName(), line;
+    while (!f.eof())
     {
-        if (!temp.isThisPerson(ans))
-            continue;
-
-        aCurUser.setInfo(temp);
-        break;
+        getline(f, line);
+        Person temp(Tokenizer::Parse(line, ","));
+        if (temp.isThisPerson(ans))
+        {
+            aCurUser.updateInfo(temp);
+            break;
+        }
     }
 
     f.close();
     return true;
 }
 
+bool AccountList::changeCurUser(std::string us)
+{
+    int l = 0, r = aList.size()-1, pos;
+    while (l <= r)
+    {
+        pos = l + (r-l)/2;
+        if (aList[pos].isThisUser(us))
+        {
+            aCurUser.updateUser(aList[pos].user,aList[pos].pass,aList[pos].ID,aList[pos].status);
+            return true;
+        }
+        if (us.compare(aList[pos].user) > 0) // us > user
+            l = pos + 1;
+        else
+            r = pos - 1;       
+    }
+    return false;
+}
+
 bool AccountList::saveUsers()
 {
-    std::string fileName = "User.csv";
+    std::string fileName = "Users.csv";
 
     std::ofstream f;
-    f.open(fileName);
+    f.open(fileName, std::ios::out);
 
-    for (int i = 0; i < aList.size()-1; i++)
+    for (int i = 0; i < aList.size(); i++)
     {
-        f << aList[i].user << "\n" 
-          << aList[i].pass << "\n"
-          << aList[i].ID   << "\n";
+        if (i != 0) f << "\n";
+        f << aList[i].ID << "," 
+          << aList[i].user << ","
+          << aList[i].pass << ","
+          << (aList[i].status == Active ? "Active" : "Canceled") << ",";
     }
-
-    // Tach ra de dam bao khong co dong trang o cuoi file.
-    f << aList[aList.size()-1].user << "\n"
-      << aList[aList.size()-1].pass << "\n"
-      << aList[aList.size()-1].ID;
 
     f.close();
     return true;
@@ -87,17 +99,22 @@ bool AccountList::saveCurUserInfo()
     std::ifstream fi;
     fi.open(fileName);
 
-    std::string us = aCurUser.getUserName();
+    std::string us = aCurUser.getUserName(), temp;
     std::vector<Person> pList;
-    Person temp;
+    Person ptemp;
     int tempPos = 0, pos = -1;
     bool found = false;
     // Kiểm tra xem Person có nằm trong file chưa,
     // Nếu có thì lấy vị trí Person ra để ghi đè
-    while (fi >> temp)
+    while (!fi.eof())
     {
+        getline(fi, temp);
+        ptemp.changeProfile(Tokenizer::Parse(temp, ","));
 
-        if (temp.isThisPerson(us))
+        if (found)
+            pList.push_back(ptemp);
+
+        if (ptemp.isThisPerson(us))
         {
             found = true;
             pos = tempPos;
@@ -105,28 +122,33 @@ bool AccountList::saveCurUserInfo()
 
         tempPos = fi.tellg();
 
-        if (found)
-            pList.push_back(temp);
     }
     fi.close();
+
+    std::cout << " ** Pos: " << pos << "\n";
 
     // Nếu person chưa nằm trong file thì ghi vào cuối file
     if (pos == -1)
     {
-        std::ofstream fo;
-        fo.open(fileName, std::ios::ate);
-        fo << temp;
+        std::fstream fo;
+        fo.open(fileName, std::ios::out | std::ios::app);
+        if (fo.tellp() != 0)
+            fo << "\n";
+        aCurUser.getInfo().writeOnFile(fo);
         fo.close();
         return true;
     }
 
     // Nếu đã nằm trong file thì seek đến vị trí đó,
     // Ghi đè và sau đó ghi các Person còn lại ở sau (đã lưu trong pList)
-    std::fstream fo(fileName, std::ios::in | std::ios::out | std::ios::app);
-    fo.seekg(pos, fo.beg);
-    fo << aCurUser.getInfo();
+    std::fstream fo(fileName, std::ios::in | std::ios::out | std::ios::ate);
+    fo.seekp(pos, fo.beg);
+    aCurUser.getInfo().writeOnFile(fo);
     for (auto i : pList)
-        fo << i;
+    {
+        fo << "\n";
+        i.writeOnFile(fo);
+    }
 
     fo.close();
     return true;

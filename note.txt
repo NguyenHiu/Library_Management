@@ -1,0 +1,13 @@
+File:
+	- Users: id, username, password, status -> Sorted by username (alphabet)
+	- BorrowedCard: 
+	- Person: Name, Email, Phone, Identity card, address, gender, day of birth -> sorted by aID (ull)
+		+ aID của Account nhỉ, -> index của Account <=> Person
+
+Account.csv có ID + Username
+Users.csv tại sao phải cần cả ID và Username?
+--> Vì cách hoạt động của nó: 
+	+ Register: chưa có ID, chỉ có Username; Kiểm tra tồn tại chưa, vào User search bằng Username.
+	+ Load info vào CurUser: có ID, do Account.csv và Person.csv sắp theo ID nên dùng ID search bằng interpolation.
+
+Khi thay doi --> Person.csv + Account.csv + Users.csv
