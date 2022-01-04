@@ -51,23 +51,10 @@ bool AccountList::loadCurUserInfo()
     return true;
 }
 
-bool AccountList::changeCurUser(std::string us)
+bool AccountList::changeCurUser(User us)
 {
-    int l = 0, r = aList.size()-1, pos;
-    while (l <= r)
-    {
-        pos = l + (r-l)/2;
-        if (aList[pos].isThisUser(us))
-        {
-            aCurUser.updateUser(aList[pos].user,aList[pos].pass,aList[pos].ID,aList[pos].status);
-            return true;
-        }
-        if (us.compare(aList[pos].user) > 0) // us > user
-            l = pos + 1;
-        else
-            r = pos - 1;       
-    }
-    return false;
+    aCurUser.updateUser(us.user, us.pass, us.ID, us.status);
+    return true;
 }
 
 bool AccountList::saveUsers()

@@ -21,9 +21,6 @@ public:
         pass = info[2];
         status = (info[3] == "Active" ? AccountStatus::Active : AccountStatus::Canceled);
     }
-    bool isThisUser(std::string username) {
-        return (username == user);
-    }
     
     // test
     void changePass(std::string nPass) {
@@ -50,7 +47,7 @@ public:
     AccountList();
     bool loadUsers();
     bool loadCurUserInfo();
-    bool changeCurUser(std::string us); // To swith account 
+    bool changeCurUser(User user); // To swith account 
     
     bool saveUsers();
     bool saveCurUserInfo();
