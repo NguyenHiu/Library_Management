@@ -72,11 +72,6 @@ std::string Account::toString() const
     return os.str();
 }
 
-std::string Account::getUserName()
-{
-    return aUsername;
-}
-
 void Account::updateInfo(Person info)
 {
     aInfo = info;
@@ -90,4 +85,19 @@ Person Account::getInfo()
 ull Account::getID()
 {
     return aID;
+}
+
+std::string Account::getUserName()
+{
+    return aUsername;
+}
+
+std::string Account::getPassword()
+{
+    return aPassword;
+}
+
+AccountStatus Account::getStatus()
+{
+    return aStatus;
 }

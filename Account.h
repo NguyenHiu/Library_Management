@@ -33,8 +33,10 @@ public:
     std::string toString() const;
     ull getID();
      
-    std::string getUserName(); // Hàm này hỗ trợ loadCurUserInfo() trong việc lấy Username ra so sánh
     Person getInfo();
+    std::string getUserName(); // Hàm này hỗ trợ loadCurUserInfo() trong việc lấy Username ra so sánh
+    std::string getPassword();
+    AccountStatus getStatus();
     void updateInfo(Person info);
     void updateUser(std::string us, std::string pw, ull id, AccountStatus status) {
         aUsername = us;
