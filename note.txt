@@ -3,7 +3,10 @@ File:
 	- BorrowedCard: 
 	- Person: Name, Email, Phone, Identity card, address, gender, day of birth -> sorted by aID (ull)
 		+ aID của Account nhỉ, -> index của Account <=> Person
-
+	- Book: 
+	ull 	string 	 string, string, 	Date, 	 ull, 	   ull,
+    ISBN 	Title	 Author, Publisher, PubDate, Barcode1, Barcode2
+	
 Account.csv có ID + Username
 Users.csv tại sao phải cần cả ID và Username?
 --> Vì cách hoạt động của nó: 

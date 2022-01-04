@@ -22,6 +22,6 @@ public:
     std::string getIDCard();
     
     bool isThisPerson(std::string username);
-    bool Person::isThisPersonIDC(std::string _id);
+    bool isThisPersonIDC(std::string _id);
     bool hasGender(bool gender);
 };
