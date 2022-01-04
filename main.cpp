@@ -1,5 +1,6 @@
 #include "Librarian.h"
 #include "DevLibraries.h"
+#include "Utility.h"
 
 std::vector<std::string> Data::dStopwords = Data::loadStopwords();
 
@@ -9,6 +10,14 @@ int main()
     lib.loadBooks();
     lib.loadUsers();
     lib.loadPeople();
+
+    std::string info = "Nguyen Trong Hieu,nguyenhieu82132@gmail,0707620014,301797241,Long An,1,08/10/2002,";
+    Person newPerson(Tokenizer::Parse(info,","));
+    Account newAcc(1,"Nguyen Trong Hieu", "123",newPerson);
+    
+    bool Register = Utility::enterRegister(lib,lib,newAcc);
+    if (!Register)
+        std::cout << "Error...\n";
 
     lib.saveUsers();
     lib.savePeople();
