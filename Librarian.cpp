@@ -12,7 +12,7 @@ bool Librarian::removeAccount(std::string username)
     // Remove User in AccountList
     int n = this->aList.size();
     for (int i = 0; i < n; ++i)
-        if (this->aList[i].isThisUser(username))
+        if (this->aList[i].user == username)
         {
             aList.erase(aList.begin() + i);
             return true;
@@ -92,7 +92,7 @@ std::string Librarian::lookUpMemberByName(std::string _name)
     while (l <= r)
     {
         pos = l + (r-l)/2;
-        if (aList[pos].isThisUser(_name))
+        if (aList[pos].user == _name)
         {
             id = aList[pos].ID;
             break;

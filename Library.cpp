@@ -109,11 +109,7 @@ bool Library::loadBorrowCards()
 // Done
 bool Library::loadPeople()
 {
-    //----------------------------------------------------------
-    // People.csv Format                                       |
-    // string, string, string, Date, string, string, bool      |
-    // Name, Email, Phone, DayOfBirth, IDCard, Address, Gender |
-    //----------------------------------------------------------
+    // Name,email,phoneNumber,IdCard,Address,Gender,DateOfBrith
     std::ifstream fi(PEOPLE);
     if (fi.is_open())
     {
