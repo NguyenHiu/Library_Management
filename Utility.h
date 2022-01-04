@@ -10,7 +10,7 @@ public:
     static std::vector<Book> searchByTitle(Library lib, std::string query);
     static std::vector<std::string> displayBooks(Library lib);
     static int getBooksQuantity(Library lib);
-    // static bool enterLogin(User, AccountList&);
-    // static bool enterRegister(Library&, AccountList&, Account): bool
+    static bool enterLogin(User, AccountList&);
+    static bool enterRegister(Library&, AccountList&, Account);
     // static bool enterLogOut(AccountList, string, string): bool
 };

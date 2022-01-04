@@ -65,3 +65,75 @@ int Utility::getBooksQuantity(Library lib)
         total += lib.lBooks[i].getCopiesQuantity() - 1;
     return total;
 }
+
+bool Utility::enterLogin(User us, AccountList& accList)
+{
+    // Step1: Check User + Password (using vector<User> of AccountList)
+    // Step2: If available --> Change aCurUser of AccountList
+    // Step3: Done
+
+    int l = 0, r = accList.aList.size()-1, pos;
+    while (l <=r )
+    {
+        pos = l + (r-l)/2;
+        int cmp = us.user.compare(accList.aList[pos].user);
+        // True if us and aList[pos] have the same username
+        if (cmp == 0)
+        {
+            // Check password
+            if (us.pass == accList.aList[pos].pass)
+            {
+                accList.changeCurUser(us);
+                accList.loadCurUserInfo();
+                return true;
+            }
+            // if password is wrong --> Login false
+            return false;
+        }
+
+        // username of us > username of aList[pos]
+        if (cmp > 0)
+            l = pos +1;
+        else
+            r = pos - 1;
+    }
+
+    // if can not find out username in list
+    return false;
+}
+
+bool Utility::enterRegister(Library& lib, AccountList& accList, Account acc)
+{
+    // Library lib -> Check lPeople
+    // AccountList accList -> Check aList
+
+    // Check username
+    int l = 0, r = accList.aList.size()-1, pos, temp = -1;
+    while (l <= r )
+    {
+        pos = l + (r-l)/2;
+        int cmp = acc.getUserName().compare(accList.aList[pos].user);
+        // True if acc and aList[pos] have the same username
+        if (cmp == 0)
+        {
+            temp = pos;
+            break;
+        }
+
+        // username of acc > username of aList[pos]
+        if (cmp > 0)
+            l = pos +1;
+        else
+            r = pos - 1;
+    }
+    
+    // can not register with this username
+    if (temp != -1)
+        return false;
+
+    // Register
+    lib.lPeople.push_back(acc.getInfo());
+    User newUser(acc.getUserName(), acc.getPassword(), acc.getID(), acc.getStatus());
+    accList.aList.insert(accList.aList.begin()+r+1, newUser);
+    return true;
+}
