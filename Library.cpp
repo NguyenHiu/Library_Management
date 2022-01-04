@@ -73,13 +73,13 @@ bool Library::loadBooks()
     return false;
 }
 
-//tetst
+/* //tetst
 void Library::printBooks()
 {
     for (auto i : lBooks)
         std::cout << i.toString() << "\n";
 }
-//
+ */
 
 bool Library::loadBorrowCards()
 {
