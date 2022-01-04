@@ -16,7 +16,7 @@ BorrowCard::BorrowCard(ull ID, ull accountID, ull ISBN, ull Barcode)
     this->bcBarcode = Barcode;
     Date _today;
     this->bcCreatedDate = _today;
-    this->bcDueDate = this->bcCreatedDate + 14;
+    this->bcDueDate = this->bcCreatedDate + DAYS_LIMIT;
 }
 
 BorrowCard::BorrowCard(std::vector<std::string> bcTokens)
@@ -33,7 +33,7 @@ BorrowCard::BorrowCard(std::vector<std::string> bcTokens)
     this->bcCreatedDate = _created != nullptr ? *_created : _today;
 
     Date *_due = Date::Parse(bcTokens[++i]);
-    this->bcDueDate = _due != nullptr ? *_due : (this->bcCreatedDate + 14);
+    this->bcDueDate = _due != nullptr ? *_due : (this->bcCreatedDate + DAYS_LIMIT);
 
     delete _created;
     delete _due;
@@ -71,7 +71,8 @@ Date BorrowCard::getReturnDate()
 
 Date BorrowCard::extendDate()
 {
-    this->bcDueDate = this->bcDueDate + 7;
+    this->bcDueDate = this->bcDueDate + DAYS_EXTEND;
+    return this->bcDueDate;
 }
 
 std::string BorrowCard::getInfo()

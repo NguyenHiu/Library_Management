@@ -12,6 +12,8 @@ public:
 protected:
     std::vector<Book> lBooks;
     std::vector<Person> lPeople;
+
+public:
     std::vector<BorrowCard> lBCards;
 
 private:

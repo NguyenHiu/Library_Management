@@ -1,4 +1,4 @@
-#include "In.h"
+/* #include "In.h"
 
 bool In::loadAccounts()
 {
@@ -47,4 +47,4 @@ bool In::Register(In &in, std::string us, std::string pw)
     in.list.push_back(us); 
     in.list.push_back(pw);
     return 1; // Tao thanh cong
-}
+} */

@@ -88,7 +88,7 @@ bool Library::loadBorrowCards()
     // ull, ull, ull, ull, Date, Date                     |
     // ID, AccountID, ISBN, Barcode, CreatedDate, DueDate |
     //-----------------------------------------------------
-    std::ifstream fi(BOOKS);
+    std::ifstream fi(BORROWCARDS);
     if (fi.is_open())
     {
         std::string line = "";

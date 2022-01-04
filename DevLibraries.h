@@ -13,7 +13,10 @@
 #define PEOPLE "People.csv"
 #define BORROWCARDS "BorrowCards.csv"
 #define STOPWORDS "stopwords.txt"
+
 #define TEN_THOUSAND_D 10000
+#define DAYS_LIMIT 14
+#define DAYS_EXTEND 7
 
 typedef unsigned long long int ull;
 
