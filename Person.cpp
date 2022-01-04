@@ -102,3 +102,36 @@ bool Person::hasGender(bool gender)
 {
     return this->pGender == gender;
 }
+
+// 0 -> Wrong: Username
+// 1 -> Wrong: Email
+// 2 -> Wrong: Phone
+// 3 -> Wrong: ID Card
+// 4 -> Wrong: Address
+// 5 -> Wrong: Day of Birth
+// 6 -> valid
+int Person::checkInfo(std::vector<std::string> info)
+{
+    std::regex USERNAME("^(?=[a-zA-Z0-9._ ]{6,}$)(?!.*[_.]{2})[^_.].*[^_.]$"),
+               EMAIL("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"),
+               PHONE("^[0]?[1-9][0-9]{8}$"),
+               IDCARD("\\d{9}(\\d{3})?"),
+               ADDRESS("^[#.0-9a-zA-Z\\s-/]+$"),
+               DAYOFBIRTH("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$");
+
+    if (!std::regex_match(info[1], USERNAME))
+        return 0;
+    if (!std::regex_match(info[4], EMAIL))
+        return 1;
+    if (!std::regex_match(info[5], PHONE))
+        return 2;
+    if (!std::regex_match(info[6], IDCARD))
+        return 3;
+    if (!std::regex_match(info[7], ADDRESS))
+        return 4;
+    if (!std::regex_match(info[9], DAYOFBIRTH))
+        return 5;
+
+
+    return 6;
+}

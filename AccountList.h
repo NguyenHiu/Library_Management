@@ -9,6 +9,12 @@ public:
     ull ID;
     AccountStatus status;
 public:
+    User() {
+        user = "";
+        pass = "";
+        ID = 0;
+        status = Canceled;
+    }
     User(std::string us, std::string pw, ull id, AccountStatus _status) {
         user = us;
         pass = pw;

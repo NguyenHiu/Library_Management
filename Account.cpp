@@ -40,7 +40,7 @@ bool Account::resetPass()
 
 bool Account::updateProfile(std::vector<std::string> profile)
 {
-    // chua biet profile co bao gom aInfo va aBooksBorrowed khong
+    aInfo.changeProfile(profile);
     return true;
 }
 
@@ -59,17 +59,6 @@ void Account::updateBooksBorrowed(std::vector<std::string> bList)
 std::vector<std::string> Account::displayBorrowedBooks()
 {
     return aBooksBorrowed;
-}
-
-std::string Account::toString() const
-{
-    std::stringstream os;
-    os << " - ID: " << aID << "\n"
-       << " - Username: " << aUsername << "\n"
-       << " - Passowrd: " << aPassword << "\n"
-       << " - Info: " << "\n" << aInfo.toString() << "\n"
-       << " - Status: " << (aStatus == Active ? "Active" : "Canceled") << "\n"; 
-    return os.str();
 }
 
 void Account::updateInfo(Person info)
@@ -100,4 +89,22 @@ std::string Account::getPassword()
 AccountStatus Account::getStatus()
 {
     return aStatus;
+}
+
+void Account::updateUser(std::string us, std::string pw, ull id, AccountStatus status) {
+    aUsername = us;
+    aPassword = pw;
+    aID = id;
+    aStatus = status;
+}
+
+std::string Account::toString() const
+{
+    std::stringstream os;
+    os << " - ID: " << aID << "\n"
+       << " - Username: " << aUsername << "\n"
+       << " - Passowrd: " << aPassword << "\n"
+       << " - Info: " << "\n" << aInfo.toString() << "\n"
+       << " - Status: " << (aStatus == Active ? "Active" : "Canceled") << "\n"; 
+    return os.str();
 }

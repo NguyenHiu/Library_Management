@@ -37,7 +37,6 @@ public:
 public:
     void createSearchData();
     void upToDate();
-
-    //test functions:
-    //void printBooks();
+    int sizeBook() {return lBooks.size();}
+    int sizePeople() {return lPeople.size();}
 };

@@ -66,7 +66,11 @@ int Utility::getBooksQuantity(Library lib)
     return total;
 }
 
-bool Utility::enterLogin(User us, AccountList& accList)
+
+// return -1: password incorrect
+// return  0: username incorrect
+// return  1: login successful
+int Utility::enterLogin(User us, AccountList& accList)
 {
     // Step1: Check User + Password (using vector<User> of AccountList)
     // Step2: If available --> Change aCurUser of AccountList
@@ -88,7 +92,7 @@ bool Utility::enterLogin(User us, AccountList& accList)
                 return true;
             }
             // if password is wrong --> Login false
-            return false;
+            return -1;
         }
 
         // username of us > username of aList[pos]
@@ -99,20 +103,33 @@ bool Utility::enterLogin(User us, AccountList& accList)
     }
 
     // if can not find out username in list
-    return false;
+    return 0;
 }
 
-bool Utility::enterRegister(Library& lib, AccountList& accList, Account acc)
+// return 0: da ton tai username
+// return 1: password chua dat yeu cau
+// return 2: username chua dat yeu cau
+// return 3: email chua dat yeu cau
+// return 4: phone chua dat yeu cau
+// return 5: iD Card chua dat yeu cau
+// return 6: address chua dat yeu cau
+// return 7: day of Birth chua dat yeu cau
+// return 8: -> valid
+
+// AccInfo: Id, Username, Password, Status, Email, Phone, ID Card, Address, Gender, Day of Birth
+int Utility::enterRegister(Library& lib, AccountList& accList, std::vector<std::string> AccInfo)
 {
     // Library lib -> Check lPeople
     // AccountList accList -> Check aList
 
+    std::regex PASSWORD("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$");
+    
     // Check username
     int l = 0, r = accList.aList.size()-1, pos, temp = -1;
     while (l <= r )
     {
         pos = l + (r-l)/2;
-        int cmp = acc.getUserName().compare(accList.aList[pos].user);
+        int cmp = AccInfo[1].compare(accList.aList[pos].user);
         // True if acc and aList[pos] have the same username
         if (cmp == 0)
         {
@@ -126,14 +143,30 @@ bool Utility::enterRegister(Library& lib, AccountList& accList, Account acc)
         else
             r = pos - 1;
     }
-    
     // can not register with this username
     if (temp != -1)
-        return false;
+        return 0;
+    
+    // check password
+    if (!std::regex_match(AccInfo[2], PASSWORD))
+        return 1;
 
+    // check information 
+    int check = Person::checkInfo(AccInfo);
+    if (check != 6)
+        return check+2;
+
+    std::vector<std::string> newUser = {AccInfo[0],AccInfo[1],AccInfo[2],AccInfo[3]},
+                             newPerson = {AccInfo[1],AccInfo[4],AccInfo[5],AccInfo[6],AccInfo[7],AccInfo[8],AccInfo[9]};
     // Register
-    lib.lPeople.push_back(acc.getInfo());
-    User newUser(acc.getUserName(), acc.getPassword(), acc.getID(), acc.getStatus());
+    lib.lPeople.push_back(Person(newPerson));
     accList.aList.insert(accList.aList.begin()+r+1, newUser);
+    return 8;
+}
+
+
+bool Utility::enterLogOut() 
+{
+    // Thoat ra giao dien chinh
     return true;
 }

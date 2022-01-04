@@ -29,19 +29,15 @@ public:
     bool blockAccount();
     void updateBooksBorrowed(std::vector<std::string> list);
     std::vector<std::string> displayBorrowedBooks();
-    // ham toString de test
-    std::string toString() const;
-    ull getID();
      
     Person getInfo();
-    std::string getUserName(); // Hàm này hỗ trợ loadCurUserInfo() trong việc lấy Username ra so sánh
+    std::string getUserName();
+    ull getID();
     std::string getPassword();
     AccountStatus getStatus();
     void updateInfo(Person info);
-    void updateUser(std::string us, std::string pw, ull id, AccountStatus status) {
-        aUsername = us;
-        aPassword = pw;
-        aID = id;
-        aStatus = status;
-    }
+    void updateUser(std::string us, std::string pw, ull id, AccountStatus status);
+
+    //test
+    std::string toString() const;
 };

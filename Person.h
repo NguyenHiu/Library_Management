@@ -1,8 +1,7 @@
 #pragma once
 //#include "DevLibraries.h"
 #include "Date.h"
-
-//std::istream& operator>>(std::istream& in, Person&);
+#include "regex"
 
 class Person
 {
@@ -24,4 +23,13 @@ public:
     bool isThisPerson(std::string username);
     bool isThisPersonIDC(std::string _id);
     bool hasGender(bool gender);
+
+    // 0 -> Wrong: Username
+    // 1 -> Wrong: Email
+    // 2 -> Wrong: Phone
+    // 3 -> Wrong: ID Card
+    // 4 -> Wrong: Address
+    // 5 -> Wrong: Day of Birth
+    // 6 -> valid
+    static int checkInfo(std::vector<std::string> AccInfo);
 };
